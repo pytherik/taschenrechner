@@ -58,6 +58,7 @@ body {
 }
 
 .key {
+	cursor: pointer;
 	background-color: #444;
 	color: #e0f5a5;
 	margin: 2px;
@@ -69,6 +70,9 @@ body {
 	border-radius: .5rem;;
 }
 
+.key:hover {
+	background-color: #666;
+}
 .big {
 	margin: 2px;
 	width: 8.3rem;
