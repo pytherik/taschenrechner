@@ -3,7 +3,7 @@
   "short_name": "CalcMaster",
   "theme_color": "#30E3DF",
   "background_color": "#444",
-  "display": "browser",
+  "display": "fullscreen",
   "orientation": "portrait",
   "scope": "/",
   "start_url": "/",
