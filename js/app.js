@@ -13,7 +13,7 @@ for (let i = 0; i < key.length; i++) {
     input = key[i].innerHTML.trim();
     if (input.match('[0-9]')) {
       console.log(operator);
-      if (operator != '') {
+      if (operator != '' && termsArray.includes(result.innerHTML)) {
         term = input;
       } else {
         term += input;
