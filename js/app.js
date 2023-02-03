@@ -7,16 +7,21 @@ let operator = '';
 let term = '';
 
 result.innerHTML = 0;
+resultFlag = false;
 
 //: input mainloop
 for (let i = 0; i < key.length; i++) {
   key[i].addEventListener('click', () => {
     input = key[i].innerHTML.trim();
 //: input is a number
-    if (input.match('[0-9]')) {
+    if (input.match('[0-9.]')) {
       console.log(operator);
-      if (operator != '' && termsArray.includes(result.innerHTML) || operator == '=' && termsArray.length == 0) {
+      if (operator != '' && resultFlag == true || operator == '=' && termsArray.length == 0) {
         term = input;
+        resultFlag = false;
+        if (operator == '=') {
+          signs.innerHTML = '';
+        }
       } else {
         term += input;
       }
@@ -27,6 +32,7 @@ for (let i = 0; i < key.length; i++) {
       term = '';
       operator = '';
       result.innerHTML = 0;
+      resultFlag = false;
       signs.innerHTML = '';
     } else if (input == 'ce') {
       if (term != '') {
@@ -41,6 +47,7 @@ for (let i = 0; i < key.length; i++) {
           term = calculate(operator, termsArray);
           result.innerHTML = term;
           termsArray = [term];
+          resultFlag = true;
         } else {
           term = '';
         }
@@ -53,6 +60,7 @@ for (let i = 0; i < key.length; i++) {
         result.innerHTML = term;
         termsArray = [];
         operator = '=';
+        resultFlag = true;
         signs.innerHTML = operator;
       } else {
         termsArray.push(term);
