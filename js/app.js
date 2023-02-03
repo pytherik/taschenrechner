@@ -15,7 +15,7 @@ for (let i = 0; i < key.length; i++) {
 //: input is a number
     if (input.match('[0-9]')) {
       console.log(operator);
-      if (operator != '' && termsArray.includes(result.innerHTML)) {
+      if (operator != '' && termsArray.includes(result.innerHTML) || operator == '=' && termsArray.length == 0) {
         term = input;
       } else {
         term += input;
