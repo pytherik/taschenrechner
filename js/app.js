@@ -1,62 +1,73 @@
-const key     = document.querySelectorAll('.key'); //: all keys of the calculator
-const result = document.getElementById('result');  //: result display panel
-const signs = document.getElementById('signs');    //: display for the operator
+const key = document.querySelectorAll(".key"); //: all keys of the calculator
+const result = document.getElementById("result"); //: result display panel
+const signs = document.getElementById("signs"); //: display for the operator
 
 let termsArray = [];
-let operator = '';
-let term = '';
+let operator = "";
+let term = "";
 
 result.innerHTML = 0;
+resultFlag = false;
 
 //: input mainloop
 for (let i = 0; i < key.length; i++) {
-  key[i].addEventListener('click', () => {
+  key[i].addEventListener("click", () => {
     input = key[i].innerHTML.trim();
-//: input is a number
-    if (input.match('[0-9]')) {
+    //: input is a number
+    if (input.match("[0-9.]")) {
       console.log(operator);
-      if (operator != '' && term == '' && termsArray.length == 0) {
+      if (
+        (operator != "" && resultFlag == true) ||
+        (operator == "=" && termsArray.length == 0)
+      ) {
         term = input;
+        resultFlag = false;
+        if (operator == "=") {
+          signs.innerHTML = "";
+        }
       } else {
         term += input;
       }
       result.innerHTML = term;
-//: input is not a number (c = clear, ce = delete last digit)
-    } else if (input == 'c') {
+      //: input is not a number (c = clear, ce = delete last digit)
+    } else if (input == "c") {
       termsArray = [];
-      term = '';
-      operator = '';
+      term = "";
+      operator = "";
       result.innerHTML = 0;
-      signs.innerHTML = '';
-    } else if (input == 'ce') {
-      if (term != '') {
+      resultFlag = false;
+      signs.innerHTML = "";
+    } else if (input == "ce") {
+      if (term != "") {
         term = term.slice(0, -1);
         result.innerHTML = term;
       }
     } else {
-//: input is an operator
-      if (input != '=' && term != '') {
+      //: input is an operator
+      if (input != "=" && term != "") {
         termsArray.push(term);
         if (termsArray.length > 1) {
           term = calculate(operator, termsArray);
           result.innerHTML = term;
           termsArray = [term];
+          resultFlag = true;
         } else {
-          term = '';
+          term = "";
         }
         operator = input;
         signs.innerHTML = operator;
-//: input is eqal sign
-      } else if (input == '=' && operator != '' && term != '') {
+        //: input is eqal sign
+      } else if (input == "=" && operator != "" && term != "") {
         termsArray.push(term);
         term = calculate(operator, termsArray);
         result.innerHTML = term;
         termsArray = [];
-        operator = '=';
+        operator = "=";
+        resultFlag = true;
         signs.innerHTML = operator;
       } else {
         termsArray.push(term);
-        term = '';
+        term = "";
         if (termsArray.length > 1) {
           termsArray = [calculate(operator, termsArray)];
           result.innerHTML = termsArray[0];
@@ -64,31 +75,30 @@ for (let i = 0; i < key.length; i++) {
       }
     }
     console.log(term, termsArray);
-    }
-  )
+  });
 }
-  
+
 function calculate(operator, termsArray) {
   let a = parseFloat(termsArray[0]);
   let b = parseFloat(termsArray[1]);
   let result = 0;
-//: detect fitting calculation
+  //: detect fitting calculation
   switch (operator) {
-    case '+':
+    case "+":
       result = a + b;
       break;
-    case '-':
+    case "-":
       result = a - b;
       break;
-    case '×':
+    case "×":
       result = a * b;
       break;
-    case '÷':
+    case "÷":
       result = a / b;
       break;
-    case '^':
+    case "^":
       result = a ** b;
       break;
-    }
-  return (result.toString()).slice(0, 10); //: cut output to 10 digits
+  }
+  return result.toString().slice(0, 10); //: cut output to 10 digits
 }
