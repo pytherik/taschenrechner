@@ -1,6 +1,6 @@
-const key     = document.querySelectorAll('.key'); //: all keys of the calculator
-const result = document.getElementById('result');  //: result display panel
-const signs = document.getElementById('signs');    //: display for the operator
+const key     = document.querySelectorAll('.key'); 
+const result = document.getElementById('result');  
+const signs = document.getElementById('signs');    
 
 let termsArray = [];
 let operator = '';
@@ -8,11 +8,9 @@ let term = '';
 
 result.innerHTML = 0;
 
-//: input mainloop
 for (let i = 0; i < key.length; i++) {
   key[i].addEventListener('click', () => {
     input = key[i].innerHTML.trim();
-//: input is a number
     if (input.match('[0-9]')) {
       console.log(operator);
       if (operator != '' && term == '' && termsArray.length == 0) {
@@ -21,7 +19,6 @@ for (let i = 0; i < key.length; i++) {
         term += input;
       }
       result.innerHTML = term;
-//: input is not a number (c = clear, ce = delete last digit)
     } else if (input == 'c') {
       termsArray = [];
       term = '';
@@ -34,7 +31,6 @@ for (let i = 0; i < key.length; i++) {
         result.innerHTML = term;
       }
     } else {
-//: input is an operator
       if (input != '=' && term != '') {
         termsArray.push(term);
         if (termsArray.length > 1) {
@@ -46,7 +42,6 @@ for (let i = 0; i < key.length; i++) {
         }
         operator = input;
         signs.innerHTML = operator;
-//: input is eqal sign
       } else if (input == '=' && operator != '' && term != '') {
         termsArray.push(term);
         term = calculate(operator, termsArray);
@@ -72,7 +67,6 @@ function calculate(operator, termsArray) {
   let a = parseFloat(termsArray[0]);
   let b = parseFloat(termsArray[1]);
   let result = 0;
-//: detect fitting calculation
   switch (operator) {
     case '+':
       result = a + b;
@@ -90,5 +84,5 @@ function calculate(operator, termsArray) {
       result = a ** b;
       break;
     }
-  return (result.toString()).slice(0, 10); //: cut output to 10 digits
+  return (result.toString()).slice(0, 10); 
 }
