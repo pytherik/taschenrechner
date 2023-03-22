@@ -63,6 +63,10 @@ for (let i = 0; i < key.length; i++) {
         operator = input;
         fullArray.push(operator);
         signs.innerHTML = operator;
+      // } else if (input != "=" && term == "") {
+      //   operator = input;
+      //   fullArray[fullArray.length -1] = operator;
+      //   signs.innerHTML = operator;        
         //: input is eqal sign
       } else if (input == "=" && operator != "" && term != "") {
         termsArray.push(term);
